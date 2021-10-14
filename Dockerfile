@@ -44,9 +44,7 @@ RUN apt-get update \
 
 # Install Magento Dependencies
 
-RUN docker-php-ext-configure \
-  	gd --with-freetype=/usr/include --with-jpeg=/usr/include \
-  	docker-php-ext-install \
+RUN  docker-php-ext-install \
   	opcache \
   	gd \
   	bcmath \
