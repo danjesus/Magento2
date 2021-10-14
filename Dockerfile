@@ -1,6 +1,6 @@
-FROM php:7.1-apache
+FROM php:7.4-apache
 
-MAINTAINER Rafael Corrêa Gomes <rafaelcgstz@gmail.com>
+LABEL maintener="Rafael Corrêa Gomes" email=rafaelcgstz@gmail.com
 
 ENV XDEBUG_PORT 9000
 
@@ -22,7 +22,7 @@ RUN apt-get update \
 	apt-utils \
 	gnupg \
 	redis-tools \
-	mysql-client \
+	default-mysql-client \
 	git \
 	vim \
 	wget \
@@ -33,7 +33,9 @@ RUN apt-get update \
 	tar \
 	cron \
 	bash-completion \
-	&& apt-get clean
+	libzip-dev \
+	libonig-dev \
+	&& apt-get clean 
 
 # Install Magento Dependencies
 
@@ -45,7 +47,6 @@ RUN docker-php-ext-configure \
   	bcmath \
   	intl \
   	mbstring \
-  	mcrypt \
   	pdo_mysql \
   	soap \
   	xsl \
@@ -63,7 +64,7 @@ RUN apt-get update \
 
 # Install Node, NVM, NPM and Grunt
 
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
   	&& apt-get install -y nodejs build-essential \
     && curl https://raw.githubusercontent.com/creationix/nvm/v0.16.1/install.sh | sh \
     && npm i -g grunt-cli yarn
@@ -71,7 +72,7 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
 # Install Composer
 
 RUN	curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
-RUN composer global require hirak/prestissimo
+# RUN composer global require hirak/prestissimo
 
 # Install Code Sniffer
 
