@@ -35,6 +35,11 @@ RUN apt-get update \
 	bash-completion \
 	libzip-dev \
 	libonig-dev \
+	libpng-dev \ 
+	libfreetype6-dev \
+	libjpeg62-turbo-dev \
+	libgd-dev \
+	libpng-dev \
 	&& apt-get clean 
 
 # Install Magento Dependencies
@@ -50,7 +55,8 @@ RUN docker-php-ext-configure \
   	pdo_mysql \
   	soap \
   	xsl \
-  	zip
+  	zip \
+	sockets
 
 # Install oAuth
 
